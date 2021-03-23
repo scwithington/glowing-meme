@@ -2,11 +2,22 @@ var questionsEl = document.getElementById('questions');
 var questionTitleEl = document.getElementById('question-title');
 var questionAnswerChoicesEl = document.getElementById('choices');
 
+var startButton = document.getElementById('start-button');
+var startScreen = document.getElementById('start-screen');
+var questionScreen = document.getElementById('question-screen');
+
 var buttonOne = document.getElementById('buttonFirst');
 var buttonTwo = document.getElementById('buttonSecond');
 var buttonThree = document.getElementById('buttonThird');
 var buttonFour = document.getElementById('buttonFourth');
 var buttons = document.querySelectorAll('button');
+
+startButton.addEventListener('click', startGame)
+
+function startGame(){
+    startScreen.classList.add('hidden');
+    questionScreen.classList.remove('hidden');
+}
 
 const myQuestions = [
     {
@@ -38,26 +49,26 @@ const myQuestions = [
     }
 ];
 
-console.log(myQuestions);
+// console.log(myQuestions);
 
-function checkAnswer(correctAnswer) {
-    if(correctAnswer) {
-        alert('correct');
-    } else {
-        alert('incorrect');
-    }
-}
+// function checkAnswer(correctAnswer) {
+//     if(correct = true) {
+//         alert('correct');
+//     } else {
+//         alert('incorrect');
+//     }
+// }
 
-var buttons = addEventListener('click', function(){
-    checkAnswer();
-    nextQuestion();
-});
+// var buttons = addEventListener('click', function(){
+//     checkAnswer();
+//     nextQuestion();
+// });
 
-function nextQuestion() {
-    questionTitleEl.textContent = myQuestions[0].question;
-    buttonOne.textContent = myQuestions[0].answers[0];
-    buttonTwo.textContent = myQuestions[0].answers[1];
-    buttonThree.textContent = myQuestions[0].answers[2];
-    buttonFour.textContent = myQuestions[0].answers[3];
-}
+// function nextQuestion() {
+//     questionTitleEl.textContent = myQuestions[0].question;
+//     buttonOne.textContent = myQuestions[0].answers[0];
+//     buttonTwo.textContent = myQuestions[0].answers[1];
+//     buttonThree.textContent = myQuestions[0].answers[2];
+//     buttonFour.textContent = myQuestions[0].answers[3];
+// }
 
