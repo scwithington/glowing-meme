@@ -16,7 +16,7 @@ var questionScreen = document.getElementById('question-screen');
 var playerScore = 0;
 var currentQIndex = 0;
 
-var gameDuration = 90;
+var gameDuration = 60;
 
 startButton.addEventListener('click', startGame)
 
@@ -34,22 +34,16 @@ function startTimer(){
     var timer = document.createElement("div");
     timer.setAttribute("id", "timer-readout");
     document.body.appendChild(timer);
-    timerInterval = setInterval(() => {
-        gameDuration--;
-        // Math variables stating a rotation of 60 seconds
-        var minuteHand = Math.floor(gameDuration / 60);
-        var secondHand = gameDuration % 60;
-        // Assigning an extra zero in front of minute-hand numbers that are less than 10.
-        if (secondHand < 10) {
-            secondHand = '0' + secondHand;
+    timerInterval = setInterval(function() {
+
+        if(gameDuration <= 0) {
+            clearInterval(timer);
+            gameOver();
         }
         // 
-        timer.innerHTML = `${minuteHand}:${secondHand}`;
-        // Terminate game function when seconds less than or equal to zero
-        if (gameDurationInSec = 0) {
-            gameOver();
-        // console.log(gameDuration);
-        }
+        document.getElementById('timer-readout').value = 10 - gameDuration;
+        gameDuration -=1;
+        timer.innerHTML = gameDuration;
     },   1000); // 1000 ms per interval
 }
 
@@ -75,8 +69,8 @@ const myQuestions = [
     {
       question: 'Which tool can you use to format your code?',
       answers: [
-          {a: 'Dota 2', correct: false},
-          {b: 'A bag of cashews', correct: false},
+          {a: 'ZBrush', correct: false},
+          {b: 'Blender', correct: false},
           {c: 'Nothing', correct: false},
           {d: 'Prettier', correct: true}
         ]
@@ -93,7 +87,7 @@ function displayQuestions() {
 }
 
 function questionReset() {
-    
+
 }
 
 function nextQuestion(question) {
