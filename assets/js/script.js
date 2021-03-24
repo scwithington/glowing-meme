@@ -14,7 +14,7 @@ var questionScreen = document.getElementById('question-screen');
 // var buttons = document.querySelectorAll('button');
 
 var playerScore = 0;
-var currentQIndex = 0;
+var currentQIndex = -1;
 
 var gameDuration = 60;
 
@@ -42,7 +42,7 @@ function startTimer(){
         }
         // 
         document.getElementById('timer-readout').value = 10 - gameDuration;
-        gameDuration -=1;
+        gameDuration --;
         timer.innerHTML = gameDuration;
     },   1000); // 1000 ms per interval
 }
@@ -51,7 +51,7 @@ const myQuestions = [
     {
       question: 'Who invented JavaScript?',
       answers: [
-          {a: 'Boris Shmokakov', correct: false},
+          {a: 'Boris the Soviet Lovehammer', correct: false},
           {b: 'Ronald Reagan', correct: false},
           {c: 'Brendan Eich', correct: true},
           {d: 'The letter 7', correct: false}
@@ -81,26 +81,30 @@ const myQuestions = [
 // console.log(myQuestions);
 
 function displayQuestions() {
-    questionReset();
     currentQIndex++;
     nextQuestion();
 }
 
 function questionReset() {
-
+    myQuestions[currentQIndex].answers.forEach((button) => {
+        questionAnswerChoicesEl.removeElement(button)
+        displayQuestions();
+    });
 }
 
 function nextQuestion(question) {
     questionTitleEl.innerHTML = myQuestions[currentQIndex].question;
     myQuestions[currentQIndex].answers.forEach((answer) => {
         const button = document.createElement("button");
-        button.innerHTML = myQuestions[currentQIndex].answers[answer];
+        
         button.setAttribute("class", "choice");
     // button.innerText = answers.text;
         questionAnswerChoicesEl.appendChild(button);
+        questionAnswerChoicesEl.children[0].textContent = myQuestions[currentQIndex].answers[0].a;
         button.addEventListener('click', function() {
             displayQuestions();
         });
+        
     });
 }
 
