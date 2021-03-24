@@ -14,9 +14,10 @@ var questionScreen = document.getElementById('question-screen');
 // var buttons = document.querySelectorAll('button');
 
 var playerScore = 0;
-var currentQIndex = -1;
+var currentQIndex = 0;
 
-var gameDuration = 60;
+var gameDuration = 10;
+var timer;
 
 startButton.addEventListener('click', startGame)
 
@@ -31,18 +32,19 @@ function startGame(){
 
 function startTimer(){
     //timer code
-    var timer = document.createElement("div");
+    timer = document.createElement("div");
     timer.setAttribute("id", "timer-readout");
     document.body.appendChild(timer);
     timerInterval = setInterval(function() {
-
-        if(gameDuration <= 0) {
-            clearInterval(timer);
+        if(gameDuration < 1) { 
+            
+            clearInterval(timerInterval);
             gameOver();
+        } else {
+            gameDuration--;
         }
-        // 
+        // doesn't stop at zero
         document.getElementById('timer-readout').value = 10 - gameDuration;
-        gameDuration --;
         timer.innerHTML = gameDuration;
     },   1000); // 1000 ms per interval
 }
@@ -51,81 +53,73 @@ const myQuestions = [
     {
       question: 'Who invented JavaScript?',
       answers: [
-          {a: 'Boris the Soviet Lovehammer', correct: false},
-          {b: 'Ronald Reagan', correct: false},
-          {c: 'Brendan Eich', correct: true},
-          {d: 'The letter 7', correct: false}
+          {text: 'Boris the Soviet Lovehammer', correct: false},
+          {text: 'Ronald Reagan', correct: false},
+          {text: 'Brendan Eich', correct: true},
+          {text: 'The letter 7', correct: false}
         ]
     },
     {
       question: 'Which one of these is not part of Javascript?',
       answers: [
-          {a: 'booleans', correct: false},
-          {b: 'main', correct: false},
-          {c: 'albert', correct: true},
-          {d: 'math', correct: false}
+          {text: 'booleans', correct: false},
+          {text: 'main', correct: false},
+          {text: 'albert', correct: true},
+          {text: 'math', correct: false}
         ]
     },
     {
       question: 'Which tool can you use to format your code?',
       answers: [
-          {a: 'ZBrush', correct: false},
-          {b: 'Blender', correct: false},
-          {c: 'Nothing', correct: false},
-          {d: 'Prettier', correct: true}
+          {text: 'ZBrush', correct: false},
+          {text: 'Blender', correct: false},
+          {text: 'Nothing', correct: false},
+          {text: 'Prettier', correct: true}
         ]
     }
 ];
 
-
-// console.log(myQuestions);
-
-
-
-function questionReset() {
-    var buttonEl = document.getElementById('choice');
-    myQuestions[currentQIndex].answers.forEach((button) => {
-        buttonEl.removeElement();
-        return;
-    });
-    displayQuestions();
-}
 function displayQuestions() {
-    currentQIndex++;
     nextQuestion();
+    
 }
 
 function nextQuestion(question) {
     questionTitleEl.innerHTML = myQuestions[currentQIndex].question;
+    questionAnswerChoicesEl.innerHTML = '';
     myQuestions[currentQIndex].answers.forEach((answer) => {
         const button = document.createElement("button");
         
         button.setAttribute("class", "choice");
-    // button.innerText = answers.text;
+        button.innerText = answer.text;
         questionAnswerChoicesEl.appendChild(button);
-        
-        button.addEventListener('click', function() {
-            questionReset();
+
+        button.addEventListener('click', function(event) {
+            var userInput = event.target.innerText;
+            for (i=0; i < myQuestions[currentQIndex].answers.length; i++) {
+                if (myQuestions[currentQIndex].answers[i].text === userInput) {
+                    if (myQuestions[currentQIndex].answers[i].correct === true) {
+                        alert('Correct!');
+                    }  else { //
+                        alert('Incorrect.');
+                    }
+                }
+            }
+            currentQIndex++;
+            displayQuestions();
         });
 
     });    
-    questionAnswerChoicesEl.children[0].innerHTML = myQuestions[currentQIndex].answers[0].a;
-    questionAnswerChoicesEl.children[1].innerHTML = myQuestions[currentQIndex].answers[1].b;
-    questionAnswerChoicesEl.children[2].innerHTML = myQuestions[currentQIndex].answers[2].c;
-    questionAnswerChoicesEl.children[3].innerHTML = myQuestions[currentQIndex].answers[3].d;
+
 }
 
-// function userInput {
-
+// function checkAnswer(correctAnswer) {
+//     if(answer.correct = true) {
+//         alert('correct');
+//     } else {
+//         alert('incorrect');
+//     }
 // }
-
-function checkAnswer(correctAnswer) {
-    if(answers.correct = true) {
-        alert('correct');
-    } else {
-        alert('incorrect');
-    }
-}
 
 
 
