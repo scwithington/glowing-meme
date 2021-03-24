@@ -80,16 +80,19 @@ const myQuestions = [
 
 // console.log(myQuestions);
 
+
+
+function questionReset() {
+    var buttonEl = document.getElementById('choice');
+    myQuestions[currentQIndex].answers.forEach((button) => {
+        buttonEl.removeElement();
+        return;
+    });
+    displayQuestions();
+}
 function displayQuestions() {
     currentQIndex++;
     nextQuestion();
-}
-
-function questionReset() {
-    myQuestions[currentQIndex].answers.forEach((button) => {
-        questionAnswerChoicesEl.removeElement(button)
-        displayQuestions();
-    });
 }
 
 function nextQuestion(question) {
@@ -100,12 +103,16 @@ function nextQuestion(question) {
         button.setAttribute("class", "choice");
     // button.innerText = answers.text;
         questionAnswerChoicesEl.appendChild(button);
-        questionAnswerChoicesEl.children[0].textContent = myQuestions[currentQIndex].answers[0].a;
-        button.addEventListener('click', function() {
-            displayQuestions();
-        });
         
-    });
+        button.addEventListener('click', function() {
+            questionReset();
+        });
+
+    });    
+    questionAnswerChoicesEl.children[0].innerHTML = myQuestions[currentQIndex].answers[0].a;
+    questionAnswerChoicesEl.children[1].innerHTML = myQuestions[currentQIndex].answers[1].b;
+    questionAnswerChoicesEl.children[2].innerHTML = myQuestions[currentQIndex].answers[2].c;
+    questionAnswerChoicesEl.children[3].innerHTML = myQuestions[currentQIndex].answers[3].d;
 }
 
 // function userInput {
@@ -122,7 +129,7 @@ function checkAnswer(correctAnswer) {
 
 
 
-console.log(buttons)
+// console.log(buttons)
 
 // function nextQuestion() {
 //     questionTitleEl.textContent = myQuestions[0].question;
