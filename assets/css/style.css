@@ -1,3 +1,5 @@
+* 
+
 button {
     background-color: #6f4caf;
     border: none;
@@ -10,6 +12,45 @@ button {
     margin-bottom: 10px;
   }
 
-.hidden{
-    display:none;
+body {
+  margin: auto;
+  text-align: center;
+  width: 50%;
+  border: 3px solid #6f4caf;
+  background: rgb(205, 226, 233);
+  padding: 10px;
 }
+
+.hidden{
+  display:none;
+}
+
+.resetBtn {
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+.initialFeed {
+  margin-bottom: 30px;
+}
+#start-screen {
+  font-size: 50px;
+}
+
+#start-screen p {
+  font-size: 20px;
+}
+
+#choices {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+#start-button {
+  display: flex;
+  align-items: center;
+  margin: auto;
+}
+
